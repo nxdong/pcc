@@ -1,0 +1,6 @@
+[submodule "languages/tree-sitter-python"]
+	path = languages/tree-sitter-python
+	url = https://github.com/tree-sitter/tree-sitter-python
+[submodule "languages/tree-sitter-c"]
+	path = languages/tree-sitter-c
+	url = https://github.com/tree-sitter/tree-sitter-c

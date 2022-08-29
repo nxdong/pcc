@@ -30,6 +30,7 @@ source ./venv/bin/activate
 pip3 install -r requirements_dev.txt
 # or use aliyun
 pip3 install -r requirements_dev.txt -i https://mirrors.aliyun.com/pypi/simple/
+git submodule init
 ```
 
 ## Credits
@@ -44,3 +45,4 @@ project template.
 [cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
 [gocyclo](https://github.com/fzipp/gocyclo)
 [tree-sitter](https://github.com/tree-sitter/tree-sitter)
+[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)

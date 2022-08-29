@@ -9,4 +9,6 @@ Sphinx==1.8.5
 twine==1.14.0
 Click==7.1.2
 pytest==6.2.4
-
+autopep8==1.7.0 
+pycodestyle==2.9.1
+tree-sitter==0.20.0
