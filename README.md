@@ -1,19 +1,14 @@
----
-title: pcc
----
+# pcc
 
-[![image](vertopal_f2deede0261a47429818cc4c9945d69c/db279fbd4bb7daad47f19325d83109e02945ac31.svg)](https://pypi.python.org/pypi/pcc)
+![image](https://pypi.python.org/pypi/pcc)
 
-[![image](vertopal_f2deede0261a47429818cc4c9945d69c/0a85d641bb8088b9a2ff72b62c562fc8634a745a.svg)](https://travis-ci.com/nxdong/pcc)
+![image](https://travis-ci.com/nxdong/pcc)
 
-[![Documentation Status](vertopal_f2deede0261a47429818cc4c9945d69c/9125413f35dcc925a1f54fc507636d5725cfc45e.svg)](https://pcc.readthedocs.io/en/latest/?version=latest)
+![Documentation Status](https://pcc.readthedocs.io/en/latest/?version=latest)
 
-[![Updates](vertopal_f2deede0261a47429818cc4c9945d69c/45fc523b2c11b452dbede6d1cf791647a9a5f6a3.svg)](https://pyup.io/repos/github/nxdong/pcc/)
+![Updates](https://pyup.io/repos/github/nxdong/pcc/)
 
 Python Cyclomatic Complexity Caculator
-
--   Free software: MIT license
--   Documentation: <https://pcc.readthedocs.io>.
 
 ## Features
 
