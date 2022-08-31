@@ -1,4 +1,5 @@
 from abc import ABC
+from abc import abstractmethod
 import typing
 from collections.abc import Iterator
 from typing_extensions import Self
@@ -16,27 +17,10 @@ class ASTNodeAbstractClass(ABC):
 
     def trave_child(self) -> Iterator:
         '''return iteratable object'''
-        print("Abc trave_child")
-        return [self]
-
-    def type(self) -> typing.AnyStr:
         pass
 
+    @abstractmethod
+    def type(self) -> typing.AnyStr:
+        '''return node type'''
+        pass
 
-# ============= Temp TEST ===========
-
-class MyNode(ASTNodeAbstractClass):
-    def trave_child(self) -> Iterator:
-        '''return iteratable object'''
-        print("MyAST trave_child")
-        return [MyNode(1)]
-
-
-def call(o: ASTNodeType):
-    obj = o.trave_child()
-    print("id o:", id(o))
-    print("id obj:", id(obj))
-
-
-m = MyNode(1)
-call(m)

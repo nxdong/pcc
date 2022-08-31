@@ -1,9 +1,9 @@
 from abc import ABC
+from abc import abstractmethod
 import typing
 from collections.abc import Iterator
 from typing_extensions import Self
 from .node_abc import ASTNodeType
-
 ASTParserType = typing.TypeVar('ASTParserType', bound='ASTParserAbstractClass')
 
 
@@ -14,6 +14,7 @@ class ASTParserAbstractClass(ABC):
         self.language_name = "None"
         self.ext_name = []
 
-    def parse(self) -> ASTNodeType:
+    @abstractmethod
+    def parse(self, code) -> ASTNodeType:
         '''return '''
         pass

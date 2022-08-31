@@ -37,31 +37,31 @@ from pcc import cli
 #     assert '--help  Show this message and exit.' in help_result.output
 
 
-def test_tree_sitter():
-    """Tree Sitter Playground"""
-    print("???????")
-    import tree_sitter as ts
-    print("Tree Sitter loaded! ", ts, flush=True)
-    PY_LANGUAGE = ts.Language(
-        'languages/lib/x86-64/pcc_ts_python.so', 'python')
-    parser = ts.Parser()
-    parser.set_language(PY_LANGUAGE)
+# def test_tree_sitter():
+#     """Tree Sitter Playground"""
+#     print("???????")
+#     import tree_sitter as ts
+#     print("Tree Sitter loaded! ", ts, flush=True)
+#     PY_LANGUAGE = ts.Language(
+#         'languages/lib/x86-64/pcc_ts_python.so', 'python')
+#     parser = ts.Parser()
+#     parser.set_language(PY_LANGUAGE)
 
-    src = bytes("""
-def foo():
-    if bar:
-        baz()
-""", "utf8")
-    src = bytes("""
-import sys
-""", "utf8")
-    tree = parser.parse(src)
-    print("Tree : ", tree)
-    cursor = tree.walk()
-    print("Root type:", tree.root_node.type)
-    print("cursor type:", cursor.node.type)
+#     src = bytes("""
+# def foo():
+#     if bar:
+#         baz()
+# """, "utf8")
+#     src = bytes("""
+# import sys
+# """, "utf8")
+#     tree = parser.parse(src)
+#     print("Tree : ", tree)
+#     cursor = tree.walk()
+#     print("Root type:", tree.root_node.type)
+#     print("cursor type:", cursor.node.type)
 
-    cursor.goto_first_child()
-    print("cursor.node.type:", cursor.node.type)
+#     cursor.goto_first_child()
+#     print("cursor.node.type:", cursor.node.type)
 
-    # Root type must be module
+#     # Root type must be module
