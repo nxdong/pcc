@@ -1,13 +1,5 @@
 # pcc
 
-![image](https://pypi.python.org/pypi/pcc)
-
-![image](https://travis-ci.com/nxdong/pcc)
-
-![Documentation Status](https://pcc.readthedocs.io/en/latest/?version=latest)
-
-![Updates](https://pyup.io/repos/github/nxdong/pcc/)
-
 Python Cyclomatic Complexity Caculator
 
 ## Features
@@ -31,19 +23,46 @@ pip3 install -r requirements_dev.txt
 # or use aliyun
 pip3 install -r requirements_dev.txt -i https://mirrors.aliyun.com/pypi/simple/
 git submodule update --init
+
+python3 ./languages/build_dynamic.py 
 ```
 
-## Credits
+test: 
 
-This package was created with
-[Cookiecutter](https://github.com/audreyr/cookiecutter) and the
-[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
-project template.
+```bash
+make test
+```
+
+
+## How to add new language support
+
+1. add tree-sitter-parser project to languages dir
+2. build new language so
+3. add new dir in `pcc` dir like python.
+4. implement node, parser, vistor for new language
+5. add unit test 
+
+## TodoList
+
+- add cli support
+- add file/dir support
+- more output theme
+- multi thread support
+- fix bug result
+- depoly to pipy
+- add c language
+- add macos, windows support
+- add cross platform support
+- do more test
 
 ## Reference
 
-[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
-[gocyclo](https://github.com/fzipp/gocyclo)
-[tree-sitter](https://github.com/tree-sitter/tree-sitter)
-[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)
-[mccabe](https://github.com/PyCQA/mccabe)
+[Cookiecutter](https://github.com/audreyr/cookiecutter)  
+[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)  
+[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)  
+[gocyclo](https://github.com/fzipp/gocyclo)  
+[tree-sitter](https://github.com/tree-sitter/tree-sitter)  
+[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)  
+[mccabe](https://github.com/PyCQA/mccabe)  
+[cccalculator](https://github.com/xiaomizhou/cccalculator)  
+

@@ -12,11 +12,7 @@ class PythonNode(ASTNodeAbstractClass):
 
     def __init__(self, node: Node) -> None:
         self.node = node
-        print("Init Node:", node)
-        if node.child_by_field_name('name'):
-            print("==?==", node.child_by_field_name('name'),
-                  "dir:", dir(node.child_by_field_name('name')), " text:", node.child_by_field_name('name').text)
-
+        
     @property
     def type(self) -> str:
         '''return python node type'''
@@ -28,8 +24,8 @@ class PythonNode(ASTNodeAbstractClass):
         return self.node.child_count
 
     @property
-    def childs(self) -> list[Self]:
-        '''childs count'''
+    def children(self) -> typing.List[Self]:
+        '''child nodes'''
         return list(map(PythonNode, self.node.children))
 
     @property
@@ -54,7 +50,6 @@ class PythonNode(ASTNodeAbstractClass):
 
     @property
     def name(self) -> str:
-        print("self.node.is_named:", self.node.is_named)
         if self.node.is_named:
             name = self.node.child_by_field_name('name')
             if name and name.type == 'identifier':

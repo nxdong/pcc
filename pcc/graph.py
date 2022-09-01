@@ -1,54 +1,38 @@
 from collections import defaultdict
 import json
 
-
-class PathNode(object):
-    def __init__(self, name, look="circle"):
+class Verticle(object):
+    def __init__(self, name):
         self.name = name
-        self.look = look
-
-    def to_dot(self):
-        print('node [shape=%s,label="%s"] %d;' % (
-            self.look, self.name, self.dot_id()))
-
-    def dot_id(self):
-        return id(self)
 
 
-class PathGraph(object):
-    def __init__(self, name, entity, lineno, column=0):
+class Edge(object):
+    """the edge_verticle dictionary records the verticles and edges of the python file.
+        keys of edge_verticle are all the verticles.
+        value of each key represents all the possible next verticles of the key.
+    """
+
+    def __init__(self, name, lineno, column):
         self.name = name
-        self.entity = entity
+        self.edge_verticle = defaultdict(list)
         self.lineno = lineno
         self.column = column
-        self.nodes = defaultdict(list)
 
-    def connect(self, n1, n2):
-        self.nodes[n1].append(n2)
-        # Ensure that the destination node is always counted.
-        self.nodes[n2] = []
-
-    def to_dot(self):
-        print('subgraph {')
-        for node in self.nodes:
-            node.to_dot()
-        for node, nexts in self.nodes.items():
-            for next in nexts:
-                print('%s -- %s;' % (node.dot_id(), next.dot_id()))
-        print('}')
+    def link_verticles(self, v1, v2):
+        self.edge_verticle[v1].append(v2)
+        self.edge_verticle[v2] = []
 
     def complexity(self):
-        """ Return the McCabe complexity for the graph.
-            V-E+2
-        """
-        num_edges = sum([len(n) for n in self.nodes.values()])
-        num_nodes = len(self.nodes)
-        return num_edges - num_nodes + 2
+        # You can print the edge_verticle dictionary to see the flow graph
+        # for key,value in self.edge_verticle.items():
+        #     print('key--{}, value--{}'.format(key.name,[i.name for i in value]))
+        nodes = len(self.edge_verticle)
+        edges = sum([len(i) for i in self.edge_verticle.values()])
+        return edges-nodes+2
 
     def __str__(self) -> str:
         return json.dumps({
             'name': self.name,
-            'entity': self.entity,
             'lineno': self.lineno,
             'column': self.column,
             'complexity': self.complexity()
