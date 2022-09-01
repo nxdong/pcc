@@ -6,3 +6,4 @@ __version__ = '0.0.1'
 
 from .python import PythonParser
 from .pcc import parse_code
+from .pcc import calc_code_complexity

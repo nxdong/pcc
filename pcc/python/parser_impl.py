@@ -1,11 +1,13 @@
 from ..parser_abc import ASTParserAbstractClass
 from ..node_abc import ASTNodeType
+from .node_impl import PythonNode
 from tree_sitter import Language
 from tree_sitter import Parser
 from tree_sitter import Node
 from ..utils import get_language_lib_path
 
 PYTHON_NAME = 'python'
+
 
 def _print_node(node: Node):
     print("=========Node Info===========")
@@ -34,7 +36,7 @@ def _print_node(node: Node):
     print("type:", node.type)
     print("walk:", node.walk)
     print("=========   END   ===========")
-    
+
 
 class PythonParser(ASTParserAbstractClass):
     def __init__(self):
@@ -44,13 +46,13 @@ class PythonParser(ASTParserAbstractClass):
         self.parser = Parser()
         self.parser.set_language(self.lang_handle)
 
-    def parse(self, code: str) -> ASTNodeType:
-        print("parser:", self.parser, " method:", dir(self.parser))
+    def parse(self, code: bytes) -> PythonNode:
+        # print("parser:", self.parser, " method:", dir(self.parser))
         tree = self.parser.parse(code)
-        print("tree Node:", tree, " Type: ", type(tree))
-        print("tree Node:", tree, " dir: ", dir(tree))
-        print("tree Node:", tree, " text: ", tree.text)
-        print("tree Node:", tree, " root_node: ", tree.root_node)
+        # print("tree Node:", tree, " Type: ", type(tree))
+        # print("tree Node:", tree, " dir: ", dir(tree))
+        # print("tree Node:", tree, " text: ", tree.text)
+        # print("tree Node:", tree, " root_node: ", tree.root_node)
         root_node = tree.root_node
         _print_node(root_node)
-        return
+        return PythonNode(root_node)

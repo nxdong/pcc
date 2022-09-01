@@ -1,4 +1,6 @@
 from collections import defaultdict
+import json
+
 
 class PathNode(object):
     def __init__(self, name, look="circle"):
@@ -42,3 +44,15 @@ class PathGraph(object):
         num_edges = sum([len(n) for n in self.nodes.values()])
         num_nodes = len(self.nodes)
         return num_edges - num_nodes + 2
+
+    def __str__(self) -> str:
+        return json.dumps({
+            'name': self.name,
+            'entity': self.entity,
+            'lineno': self.lineno,
+            'column': self.column,
+            'complexity': self.complexity()
+        })
+
+    def __repr__(self) -> str:
+        return self.__str__()
