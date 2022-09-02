@@ -24,10 +24,10 @@ pip3 install -r requirements_dev.txt
 pip3 install -r requirements_dev.txt -i https://mirrors.aliyun.com/pypi/simple/
 git submodule update --init
 
-python3 ./languages/build_dynamic.py 
+python3 ./languages/build_dynamic.py
 ```
 
-test: 
+test:
 
 ```bash
 make test
@@ -40,7 +40,7 @@ make test
 2. build new language so
 3. add new dir in `pcc` dir like python.
 4. implement node, parser, vistor for new language
-5. add unit test 
+5. add unit test
 
 ## TodoList
 
@@ -48,7 +48,6 @@ make test
 - add file/dir support
 - more output theme
 - multi thread support
-- fix bug result
 - depoly to pipy
 - add c language
 - add macos, windows support
@@ -57,12 +56,12 @@ make test
 
 ## Reference
 
-[Cookiecutter](https://github.com/audreyr/cookiecutter)  
-[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)  
-[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)  
-[gocyclo](https://github.com/fzipp/gocyclo)  
-[tree-sitter](https://github.com/tree-sitter/tree-sitter)  
-[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)  
-[mccabe](https://github.com/PyCQA/mccabe)  
-[cccalculator](https://github.com/xiaomizhou/cccalculator)  
+[Cookiecutter](https://github.com/audreyr/cookiecutter)
+[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
+[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
+[gocyclo](https://github.com/fzipp/gocyclo)
+[tree-sitter](https://github.com/tree-sitter/tree-sitter)
+[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)
+[mccabe](https://github.com/PyCQA/mccabe)
+[cccalculator](https://github.com/xiaomizhou/cccalculator)
 

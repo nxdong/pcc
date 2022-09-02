@@ -17,7 +17,6 @@ class PythonVisitor(ASTVisitorAbstractClass):
         self.edge = None
 
     def add_to_path(self, verticle):
-        # todo: add commit
         if not self.end_verticle:
             return
         self.edge.link_verticles(self.end_verticle, verticle)
@@ -53,7 +52,9 @@ class PythonVisitor(ASTVisitorAbstractClass):
         self.end_verticle = fun_verticle
         self.block_visitor(node)
         self.end_verticle = None
-        self.edge_list.append(self.edge)
+        # FIXME: self.edge may changed in block_visitor. it's bad
+        if self.edge:
+            self.edge_list.append(self.edge)
         self.edge = None
 
     def module_visitor(self, node):
@@ -117,6 +118,10 @@ class PythonVisitor(ASTVisitorAbstractClass):
                 self.children_visitor(inode)
                 possible_end.append(self.end_verticle)
             if inode.type == 'except_clause':
+                self.end_verticle = begin_verticle
+                self.block_visitor(inode)
+                possible_end.append(self.end_verticle)
+            if inode.type == 'else_clause':
                 self.end_verticle = begin_verticle
                 self.block_visitor(inode)
                 possible_end.append(self.end_verticle)
