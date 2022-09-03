@@ -1,6 +1,7 @@
 from collections import defaultdict
 import json
 
+
 class Verticle(object):
     def __init__(self, name):
         self.name = name
@@ -17,6 +18,7 @@ class Edge(object):
         self.edge_verticle = defaultdict(list)
         self.lineno = lineno
         self.column = column
+        self.filename = ''
 
     def link_verticles(self, v1, v2):
         self.edge_verticle[v1].append(v2)
@@ -35,7 +37,8 @@ class Edge(object):
             'name': self.name,
             'lineno': self.lineno,
             'column': self.column,
-            'complexity': self.complexity()
+            'complexity': self.complexity(),
+            'file': self.filename
         })
 
     def __repr__(self) -> str:

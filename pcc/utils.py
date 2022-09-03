@@ -1,19 +1,18 @@
+import imp
 import os
 from sys import platform
+from charset_normalizer import from_bytes, from_path
+from .config import PCC_LIB_PATH, PCC_LIB_NAME
 
 
-def detect_platform():
-    return 'linux-x86_64'
-
-
-def get_language_lib_path(lang_name: str):
-    project_root_dir = os.path.dirname(
-        os.path.dirname(os.path.abspath(__file__)))
-    # print("BaseDir:", project_root_dir)
-    platform = detect_platform()
-    lang_lib_dir = os.path.join(project_root_dir, 'languages', 'lib', platform)
-    # TODO: add win/mac support
-    lang_lib_name = "pcc_ts_{}.so".format(lang_name)
-    lang_lib_path = os.path.join(lang_lib_dir, lang_lib_name)
-    # print("lang_so_path:",lang_lib_path)
+def get_language_lib_path(_lang_name: str) -> str:
+    lang_lib_path = os.path.join(PCC_LIB_PATH, PCC_LIB_NAME)
     return lang_lib_path
+
+
+def uniform_charset(code_bytes: bytes) -> bytes:
+    return from_bytes(code_bytes).best().output(encoding='utf_8')
+
+
+def uniform_charset_from_file(filename) -> bytes:
+    return from_path(filename).best().output(encoding='utf_8')

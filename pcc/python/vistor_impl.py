@@ -3,8 +3,6 @@ from ..graph import Verticle
 from ..graph import Edge
 
 # this code from https://github.com/xiaomizhou/cccalculator
-
-
 class PythonVisitor(ASTVisitorAbstractClass):
     """ A visitor for a parsed Abstract Syntax Tree which finds executable
         statements.
@@ -44,7 +42,7 @@ class PythonVisitor(ASTVisitorAbstractClass):
     def function_definition_visitor(self, node, class_name=None):
         line_start = node.start_point[0] + 1
         column_no = node.start_point[1]
-        fun_name = 'fun:{}'.format(line_start)
+        fun_name = '{}:{}'.format(node.name,line_start)
         if class_name:
             fun_name = class_name + '--' + fun_name
         fun_verticle = Verticle(fun_name)
