@@ -1,24 +1,28 @@
 """Console script for pcc."""
+from locale import currency
 import sys
 import typing
 import click
 import os
-import pcc
-from pcc.config import PCC_LIB_PATH
-from pcc.config import PCC_LIB_NAME
-from .config import PCC_DEFAULT_LIB_URL
 import requests
 from rich.console import Console
 from rich.table import Table
 from rich import box
-
-DEFAUTL_JOBS_COUNT = max(1, os.cpu_count()-2)
+import pcc
+from pcc.config import PCC_LIB_PATH
+from pcc.config import PCC_LIB_NAME
+from pcc.config import PCC_DEFAULT_LIB_URL
+from pcc.config import DEFAUTL_JOBS_COUNT
+from pcc.config import DEFAUTL_RESULT_COUNT
+from pcc.config import FILE_EXT_MAP
+from .utils import travel_dir_and_filter
+import concurrent.futures
 
 
 def print_version(ctx, param, value):
     if not value or ctx.resilient_parsing:
         return
-    click.echo('Version 1.0')
+    click.echo('Version 0.0.1')
     ctx.exit()
 
 
@@ -72,44 +76,63 @@ def print_retsult_table(total_list: typing.List):
     console.print(table)
 
 
-def echo_result(results: typing.Mapping[str, typing.List], limits: int = 10, sort_by_cc: bool = True):
+def echo_result(results: typing.Mapping[str, typing.List], limits_count: int = DEFAUTL_RESULT_COUNT, sort_by_cc: bool = True):
+    # merge file result
+    total_list = []
+    for _file, v in results.items():
+        total_list += v
+    # sort
     if sort_by_cc:
-        total_list = []
-        for file, v in results.items():
-            total_list += v
         total_list = sorted(
             total_list, key=lambda x: x.complexity(), reverse=True)
-        if limits > 0:
-            total_list = total_list[0:limits]
+        if limits_count > 0:
+            total_list = total_list[0:limits_count]
         print_retsult_table(total_list)
     else:
-        pass
+        if limits_count > 0:
+            total_list = total_list[0:limits_count]
+        print_retsult_table(total_list)
+
+
+def process_file(code_path: str):
+    ret = pcc.calc_code_complexity_from_file(code_path)
+    for i in range(len(ret)):
+        ret[i].filename = code_path
+    return {code_path: ret}
+
+
+def run_in_threadpool(file_lists: typing.List[str], jobs: int):
+    ret = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as executor:
+        results = executor.map(process_file, file_lists)
+        for result in results:
+            ret.update(result)
+    return ret
 
 
 @click.command()
 @click.argument('code_path', type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, resolve_path=True, allow_dash=False))
-@click.option('-j', '--jobs', type=int, default=DEFAUTL_JOBS_COUNT, show_default=True, help="Greet the world.")
+@click.option('-j', '--jobs', type=int, default=DEFAUTL_JOBS_COUNT, show_default=True, help="Parallel jobs count")
+@click.option('-c', '--count', type=int, default=DEFAUTL_RESULT_COUNT, show_default=True, help="Output item count")
+@click.option('-s', '--sort', type=bool, default=True, show_default=True, help="sort by Complexity")
+@click.option('-e', '--exclude_path', envvar="PCC_EXCLUDE_PATH", type=click.Path(file_okay=False, dir_okay=True, readable=True, resolve_path=True, allow_dash=False), multiple=True, help="exclude path")
 @click.option('--lib_path', envvar="PCC_LIB_PATH", type=click.Path(file_okay=False, dir_okay=True, readable=True, resolve_path=True, allow_dash=False), default=PCC_LIB_PATH, show_default=True, help="tree-sitter library path")
 @click.option('--version', is_flag=True, callback=print_version,
               expose_value=False, is_eager=True)
-def main(code_path, jobs, lib_path):
+def main(code_path, jobs, count, sort, exclude_path, lib_path):
     """Cyclomatic Complexity Caculator"""
-    # click.echo("code_path:")
-    # click.echo(click.format_filename(code_path))
-    # print("code path:", code_path)
-    # print("code path type:", type(code_path))
-    # print("lib path:", lib_path)
-    # check if library
     check_or_download(lib_path)
-
     if os.path.isdir(code_path):
-        pass
+        code_paths = travel_dir_and_filter(
+            code_path, exclude_path, FILE_EXT_MAP)
+        ret = run_in_threadpool(code_paths, jobs)
+        echo_result(ret, limits_count=count, sort_by_cc=sort)
     else:
         ret = pcc.calc_code_complexity_from_file(code_path)
         for i in range(len(ret)):
             ret[i].filename = code_path
         ret = {code_path: ret}
-        echo_result(ret)
+        echo_result(ret, limits_count=count, sort_by_cc=sort)
     return 0
 
 

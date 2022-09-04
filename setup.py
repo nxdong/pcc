@@ -10,7 +10,11 @@ with open('README.md') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0',
+                'tree-sitter>=0.20.0',
+                'typing-extensions>=4.3.0',
+                'charset-normalizer>=2.1.1',
+                'rich>=12.5.0']
 
 test_requirements = ['pytest>=3', ]
 

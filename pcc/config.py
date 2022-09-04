@@ -1,4 +1,5 @@
 import os
+import platform
 
 PYTHON_EXT = ['.py']
 PYTHON_NAME = 'python'
@@ -19,10 +20,34 @@ def _gen_ext_map():
 FILE_EXT_MAP = _gen_ext_map()
 
 
+def detect_platform():
+    return '{}-{}'.format(platform.system(), platform.machine())
+
+
+def get_version():
+    # TODO: uniform version
+    return '0.0.1'
+
+
+def get_lib_name():
+    p = platform.system()
+    if p == 'Linux':
+        return 'libpcc_ts_all.so'
+    elif p == 'Darwin':
+        return 'libpcc_ts_all.dylib'
+    elif p == 'Windows':
+        return 'libpcc_ts_all.dll'
+    elif p == 'Java':
+        raise Exception("{} platform not support yet!", p)
+
+
 PCC_DEFAULT_LIB_PATH = os.environ.get('PCC_DEFAULT_LIB_PATH', '.pcc/')
-PCC_DEFAULT_LIB_NAME = os.environ.get('PCC_DEFAULT_LIB_NAME', 'pcc_ts_all.so')
+PCC_DEFAULT_LIB_NAME = os.environ.get('PCC_DEFAULT_LIB_NAME', get_lib_name())
 PCC_DEFAULT_LIB_URL = os.environ.get(
-    'PCC_DEFAULT_LIB_URL', 'https://nxdong.com/data/pcc/0.0.1/Linux-x86_64/libpcc_ts_all.so')
+    'PCC_DEFAULT_LIB_URL', 'https://nxdong.com/data/pcc/{}/{}/{}'.format(get_version(), detect_platform(), PCC_DEFAULT_LIB_NAME))
 
 PCC_LIB_PATH = PCC_DEFAULT_LIB_PATH
 PCC_LIB_NAME = PCC_DEFAULT_LIB_NAME
+
+DEFAUTL_JOBS_COUNT = max(1, os.cpu_count()-2)
+DEFAUTL_RESULT_COUNT = 10
