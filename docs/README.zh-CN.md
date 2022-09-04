@@ -1,22 +1,24 @@
 <div align="center">
-    <h1><span style="color:##FF0000">P</span>ython <span style="color:##FF0000">C</span>yclomatic <span style="color:##FF0000">C</span>omplexity Caculator</h1>
+    <img src="./docs/kestrel.png">
+    <h1>Python Cyclomatic Complexity Caculator</h1>
     <img src="https://img.shields.io/static/v1?label=version&message=0.0.1&color=green">
     <h3>
-        <a href="#Installation">Installation</a>
+        <a href="#Installation">安装</a>
         <span> | </span>
         <a href="#Usage">Usage</a>
         <span> | </span>
         <a href="#Examples">Examples</a>
     </h3>
     <h5>
-        <a href="./README.md">English</a>
+        <a href="./docs/README.md">English</a>
         <span> | </span>
-        <a href="./docs/README.zh-CN.md">简体中文</a>
+        <a>简体中文</a>
     </h5>
 </div>
 
 ***
 
+Python 圈复杂度计算器
 
 ## Features
 

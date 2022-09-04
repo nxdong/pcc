@@ -19,7 +19,7 @@ requirements = ['Click>=7.0',
 test_requirements = ['pytest>=3', ]
 
 setup(
-    author="pcc",
+    author="nxdong",
     author_email='nxdong@nxdong.com',
     python_requires='>=3.6',
     classifiers=[
@@ -43,8 +43,8 @@ setup(
     long_description=readme + '\n\n' + history,
     long_description_content_type='text/markdown',
     include_package_data=True,
-    keywords='pcc',
-    name='pcc',
+    keywords='pcc, Cyclomatic Complexity, mccabe',
+    name='pcc_calc',
     packages=find_packages(include=['pcc', 'pcc.*']),
     test_suite='tests',
     tests_require=test_requirements,
