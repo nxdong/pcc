@@ -1,5 +1,5 @@
 <div align="center">
-    <h1><span style="color:##FF0000">P</span>ython <span style="color:##FF0000">C</span>yclomatic <span style="color:##FF0000">C</span>omplexity Caculator</h1>
+    <h1><span style="color:##FF0000;">P</span>ython <span style="color:##FF0000;">C</span>yclomatic <span style="color:##FF0000;">C</span>omplexity Caculator</h1>
     <img src="https://img.shields.io/static/v1?label=version&message=0.0.1&color=green">
     <h3>
         <a href="#Installation">Installation</a>
