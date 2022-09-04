@@ -2,7 +2,7 @@ from ..vistor_abc import ASTVisitorAbstractClass
 from ..graph import Verticle
 from ..graph import Edge
 
-# this code from https://github.com/xiaomizhou/cccalculator
+
 class PythonVisitor(ASTVisitorAbstractClass):
     """ A visitor for a parsed Abstract Syntax Tree which finds executable
         statements.
@@ -13,6 +13,10 @@ class PythonVisitor(ASTVisitorAbstractClass):
         self.end_verticle = None
         self.edge_list = []
         self.edge = None
+        self.filename = ''
+
+    def set_filename(self, filename):
+        self.filename = filename
 
     def add_to_path(self, verticle):
         if not self.end_verticle:
@@ -42,11 +46,11 @@ class PythonVisitor(ASTVisitorAbstractClass):
     def function_definition_visitor(self, node, class_name=None):
         line_start = node.start_point[0] + 1
         column_no = node.start_point[1]
-        fun_name = '{}:{}'.format(node.name,line_start)
+        fun_name = '{}:{}'.format(node.name, line_start)
         if class_name:
             fun_name = class_name + '--' + fun_name
         fun_verticle = Verticle(fun_name)
-        self.edge = Edge(fun_name, line_start, column_no)
+        self.edge = Edge(self.filename, fun_name, line_start, column_no)
         self.end_verticle = fun_verticle
         self.block_visitor(node)
         self.end_verticle = None
@@ -105,6 +109,8 @@ class PythonVisitor(ASTVisitorAbstractClass):
                 # if the 'if' statement has 'else' statement, the 'if' statement no longer need to be linked to the final verticel
                 possible_end = possible_end[1:]
         for iend in possible_end:
+            if self.edge is None:
+                continue
             self.edge.link_verticles(iend, final_verticle)
         self.end_verticle = final_verticle
 
@@ -124,6 +130,8 @@ class PythonVisitor(ASTVisitorAbstractClass):
                 self.block_visitor(inode)
                 possible_end.append(self.end_verticle)
         for iend in possible_end:
+            if self.edge is None:
+                continue
             self.edge.link_verticles(iend, final_verticle)
         self.end_verticle = final_verticle
 
@@ -158,6 +166,8 @@ class PythonVisitor(ASTVisitorAbstractClass):
         else:
             self.add_to_path(while_verticle)
         self.block_visitor(node)
+        if self.edge == None:
+            return
         final_verticle = Verticle('')
         self.edge.link_verticles(self.end_verticle, final_verticle)
         self.edge.link_verticles(while_verticle, final_verticle)
@@ -173,6 +183,9 @@ class PythonVisitor(ASTVisitorAbstractClass):
         else:
             self.add_to_path(for_verticle)
         self.block_visitor(node)
+        #
+        if self.edge == None:
+            return
         final_verticle = Verticle('')
         self.edge.link_verticles(self.end_verticle, final_verticle)
         self.edge.link_verticles(for_verticle, final_verticle)

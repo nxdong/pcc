@@ -13,12 +13,12 @@ class Edge(object):
         value of each key represents all the possible next verticles of the key.
     """
 
-    def __init__(self, name, lineno, column):
+    def __init__(self, filename, name, lineno, column):
         self.name = name
         self.edge_verticle = defaultdict(list)
         self.lineno = lineno
         self.column = column
-        self.filename = ''
+        self.filename = filename
 
     def link_verticles(self, v1, v2):
         self.edge_verticle[v1].append(v2)

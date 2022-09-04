@@ -34,10 +34,11 @@ def parse_code(code: str, parser: ASTParserType) -> ASTNodeType:
     return parser.parse(code)
 
 
-def calc_code_complexity(code: bytes, lan: str):
+def calc_code_complexity(code: bytes, lan: str, filename: str = ''):
     parser = get_parser(lan)
     node = parse_code(code, parser)
     visitor = get_vistor(lan)
+    visitor.set_filename(filename)
     visitor.do_visit(node)
     # for graph in visitor.edge_list:
     #     print(graph.name, graph.complexity(),
@@ -49,5 +50,5 @@ def calc_code_complexity(code: bytes, lan: str):
 def calc_code_complexity_from_file(filepath: str) -> list:
     language = detect_file_lanuage(filepath)
     code_bytes = uniform_charset_from_file(filepath)
-    edge_list = calc_code_complexity(code_bytes, language)
+    edge_list = calc_code_complexity(code_bytes, language, filepath)
     return edge_list

@@ -1,6 +1,8 @@
 """Console script for pcc."""
 from locale import currency
+from pydoc import cli
 import sys
+from time import time
 import typing
 import click
 import os
@@ -17,6 +19,7 @@ from pcc.config import DEFAUTL_RESULT_COUNT
 from pcc.config import FILE_EXT_MAP
 from .utils import travel_dir_and_filter
 import concurrent.futures
+import time
 
 
 def print_version(ctx, param, value):
@@ -96,14 +99,12 @@ def echo_result(results: typing.Mapping[str, typing.List], limits_count: int = D
 
 def process_file(code_path: str):
     ret = pcc.calc_code_complexity_from_file(code_path)
-    for i in range(len(ret)):
-        ret[i].filename = code_path
     return {code_path: ret}
 
 
 def run_in_threadpool(file_lists: typing.List[str], jobs: int):
     ret = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=jobs) as executor:
         results = executor.map(process_file, file_lists)
         for result in results:
             ret.update(result)
@@ -123,16 +124,19 @@ def main(code_path, jobs, count, sort, exclude_path, lib_path):
     """Cyclomatic Complexity Caculator"""
     check_or_download(lib_path)
     if os.path.isdir(code_path):
+        t1 = time.time()
         code_paths = travel_dir_and_filter(
             code_path, exclude_path, FILE_EXT_MAP)
         ret = run_in_threadpool(code_paths, jobs)
         echo_result(ret, limits_count=count, sort_by_cc=sort)
+        t2 = time.time()
+        click.secho("Procee [{}] files use Time: {} s".format(
+            len(code_paths), t2-t1))
     else:
         ret = pcc.calc_code_complexity_from_file(code_path)
-        for i in range(len(ret)):
-            ret[i].filename = code_path
         ret = {code_path: ret}
         echo_result(ret, limits_count=count, sort_by_cc=sort)
+
     return 0
 
 

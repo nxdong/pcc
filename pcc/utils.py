@@ -1,8 +1,6 @@
-import imp
 from multiprocessing import reduction
 import os
-from sys import platform
-from charset_normalizer import from_bytes, from_path
+# from charset_normalizer import from_bytes, from_path
 from .config import PCC_LIB_PATH, PCC_LIB_NAME
 from .config import FILE_EXT_MAP
 import typing
@@ -14,11 +12,17 @@ def get_language_lib_path(_lang_name: str) -> str:
 
 
 def uniform_charset(code_bytes: bytes) -> bytes:
-    return from_bytes(code_bytes).best().output(encoding='utf_8')
+    # TODO is too slow! repleace it someday
+    # return from_bytes(code_bytes).best().output(encoding='utf_8')
+    return code_bytes
 
 
 def uniform_charset_from_file(filename) -> bytes:
-    return from_path(filename).best().output(encoding='utf_8')
+    # TODO is too slow! repleace it someday
+    # return from_path(filename).best().output(encoding='utf_8')
+    with open(filename, 'rb') as f:
+        data = f.read()
+    return data
 
 
 def detect_file_lanuage(filepath):

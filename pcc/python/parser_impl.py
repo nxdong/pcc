@@ -6,14 +6,15 @@ from tree_sitter import Parser
 from tree_sitter import Node
 from ..utils import get_language_lib_path
 
+G_SO_PATH = get_language_lib_path('python')
+G_LANG_HANDLE = Language(G_SO_PATH, 'python')
+
 
 class PythonParser(ASTParserAbstractClass):
     def __init__(self):
         super().__init__()
-        so_path = get_language_lib_path('python')
-        self.lang_handle = Language(so_path, 'python')
         self.parser = Parser()
-        self.parser.set_language(self.lang_handle)
+        self.parser.set_language(G_LANG_HANDLE)
 
     def parse(self, code: bytes) -> PythonNode:
         tree = self.parser.parse(code)

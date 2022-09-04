@@ -6,9 +6,7 @@ Python Cyclomatic Complexity Caculator
 
 Cyclomatic complexity is a [code quality metric](https://en.wikipedia.org/wiki/Software_metric)
 
-​​圈复杂度(Cyclomatic Complexity)是一种代码复杂度的衡量标准。它可以用来衡量一个模块判定结构的复杂程度，数量上表现为独立线性路径条数，也可理解为覆盖所有的可能情况最少使用的测试用例数。圈复杂度大说明程序代码的判断逻辑复杂，可能质量低且难于测试和维护。
-
-- multi charset support.
+- multi charset support.(this may lead slow)
 - pretty output
 
 
@@ -21,22 +19,68 @@ Cyclomatic complexity is a [code quality metric](https://en.wikipedia.org/wiki/S
 ## Usage
 
 ```bash
-pcc ./pcc/pcc.py
-                               Code Cyclomatic Complexity Caculator                                
-                                                                                                   
-| Complexity | Function                       |                                              File |
-|------------|--------------------------------|---------------------------------------------------|
-|          2 | get_vistor                     | /home/sss/cyclomatic_complexity/pcc/pcc/pcc.py:19 |
-|          2 | get_parser                     | /home/sss/cyclomatic_complexity/pcc/pcc/pcc.py:26 |
-|          1 | detect_file_lanuage            | /home/sss/cyclomatic_complexity/pcc/pcc/pcc.py:14 |
-|          1 | parse_code                     | /home/sss/cyclomatic_complexity/pcc/pcc/pcc.py:33 |
-|          1 | calc_code_complexity           | /home/sss/cyclomatic_complexity/pcc/pcc/pcc.py:37 |
-|          1 | calc_code_complexity_from_file | /home/sss/cyclomatic_complexity/pcc/pcc/pcc.py:49 |
+pcc --help 
+Usage: pcc [OPTIONS] CODE_PATH
+
+  Cyclomatic Complexity Caculator
+
+Options:
+  -j, --jobs INTEGER            Parallel jobs count  [default: 10]
+  -c, --count INTEGER           Output item count  [default: 10]
+  -s, --sort BOOLEAN            sort by Complexity  [default: True]
+  -e, --exclude_path DIRECTORY  exclude path
+  --lib_path DIRECTORY          tree-sitter library path  [default: .pcc/]
+  --version
+  --help                        Show this message and exit.
 ```
+
 
 ## Examples
 
+### caculate one file
+
+```bash
+pcc ./pcc/pcc.py
+                               Code Cyclomatic Complexity Caculator                                
+                                                                                                   
+| Complexity | Function                       |                           File |
+|------------|--------------------------------|--------------------------------|
+|          2 | get_vistor                     |/your/project/pcc/pcc/pcc.py:19 |
+|          2 | get_parser                     |/your/project/pcc/pcc/pcc.py:26 |
+|          1 | detect_file_lanuage            |/your/project/pcc/pcc/pcc.py:14 |
+|          1 | parse_code                     |/your/project/pcc/pcc/pcc.py:33 |
+|          1 | calc_code_complexity           |/your/project/pcc/pcc/pcc.py:37 |
+|          1 | calc_code_complexity_from_file |/your/project/pcc/pcc/pcc.py:49 |
+```
+
+### caculate directory
+
+```bash
+pcc . -j 8 -e ./venv -e ./docs -e ./languages 
+                                        Code Cyclomatic Complexity Caculator                                         
+                                                                                                                     
+| Complexity | Function              |                                                      File |
+|------------|-----------------------|-----------------------------------------------------------|
+|          7 | class                 |            /your/project/pcc/pcc/python/vistor_impl.py:94 |
+|          7 | class                 |           /your/project/pcc/pcc/python/vistor_impl.py:117 |
+|          7 | class                 |  /your/project/pcc/build/lib/pcc/python/vistor_impl.py:94 |
+|          7 | class                 | /your/project/pcc/build/lib/pcc/python/vistor_impl.py:117 |
+|          6 | travel_dir_and_filter |                         /your/project/pcc/pcc/utils.py:33 |
+|          6 | check_or_download     |                           /your/project/pcc/pcc/cli.py:38 |
+|          6 | class                 |/your/project/pcc/tests/data/python3/directory/class.py:15 |
+|          6 | myfun                 |/your/project/pcc/tests/data/python3/directory/class.py:32 |
+|          6 | myfun2                |/your/project/pcc/tests/data/python3/directory/class.py:52 |
+|          6 | travel_dir_and_filter |               /your/project/pcc/build/lib/pcc/utils.py:33 |
+                                                                                                                     
+Procee [37] files use Time: 0.04288077354431152 s
+```
+
+as u can see, `-e` can exclude directory you don't want, and can use multi times.
+
+
 ## Development
+
+download repo and initialize environment  
 
 ```bash
 python3 -m venv venv
@@ -45,11 +89,15 @@ pip3 install -r requirements_dev.txt
 # or use aliyun
 pip3 install -r requirements_dev.txt -i https://mirrors.aliyun.com/pypi/simple/
 git submodule update --init
-
-python3 ./languages/build_dynamic.py
 ```
 
-test:
+compile dynamic library  
+
+```bash
+make lib
+```
+
+run test  
 
 ```bash
 make test
@@ -66,25 +114,21 @@ make test
 
 ## TodoList
 
-- add cli support
-- add file/dir support
-- more output theme
-- multi thread support
+- add json output for future analyze
 - depoly to pipy
 - add c language
 - add macos, windows support
-- add cross platform support
 - do more test
 - comment support
 
 ## Reference
 
-[Cookiecutter](https://github.com/audreyr/cookiecutter)
-[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
-[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
-[gocyclo](https://github.com/fzipp/gocyclo)
-[tree-sitter](https://github.com/tree-sitter/tree-sitter)
-[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)
-[mccabe](https://github.com/PyCQA/mccabe)
-[cccalculator](https://github.com/xiaomizhou/cccalculator)
-
+[Cookiecutter](https://github.com/audreyr/cookiecutter)  
+[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)  
+[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)  
+[gocyclo](https://github.com/fzipp/gocyclo)  
+[tree-sitter](https://github.com/tree-sitter/tree-sitter)  
+[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)  
+[mccabe](https://github.com/PyCQA/mccabe)  
+[cccalculator](https://github.com/xiaomizhou/cccalculator)  
+  
