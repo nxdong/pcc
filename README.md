@@ -1,5 +1,6 @@
 <div align="center">
     <h1><span style="color:#F42C04;">P</span>ython <span style="color:#F42C04;">C</span>yclomatic <span style="color:#F42C04;">C</span>omplexity <span style="color:#53687E;">Caculator</span></h1>
+    <a href="https://pypi.org/project/pcc-calc/">![PyPI version](https://badge.fury.io/py/pcc-calc.svg)</a>
     <h3>
         <a href="#Installation">Installation</a>
         <span> | </span>
@@ -12,7 +13,6 @@
         <span> | </span>
         <a href="./docs/README.zh-CN.md">简体中文</a>
     </h5>
-    [![PyPI version](https://badge.fury.io/py/pcc-calc.svg)](https://badge.fury.io/py/pcc-calc)
 </div>
 
 
