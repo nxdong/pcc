@@ -1,5 +1,5 @@
 <div align="center">
-    <h1><span style="color:##FF0000;">P</span>ython <span style="color:##FF0000;">C</span>yclomatic <span style="color:##FF0000;">C</span>omplexity Caculator</h1>
+    <h1><span style="color:#F42C04;">P</span>ython <span style="color:#F42C04;">C</span>yclomatic <span style="color:#F42C04;">C</span>omplexity <span style="color:#53687E;">Caculator</span></h1>
     <img src="https://img.shields.io/static/v1?label=version&message=0.0.1&color=green">
     <h3>
         <a href="#Installation">Installation</a>
@@ -40,7 +40,7 @@ you need download or build library first.
 ## Usage
 
 ```bash
-pcc --help 
+pcc --help
 Usage: pcc [OPTIONS] CODE_PATH
 
   Cyclomatic Complexity Caculator
@@ -62,8 +62,8 @@ Options:
 
 ```bash
 pcc ./pcc/pcc.py
-                               Code Cyclomatic Complexity Caculator                                
-                                                                                                   
+                               Code Cyclomatic Complexity Caculator
+
 | Complexity | Function                       |                           File |
 |------------|--------------------------------|--------------------------------|
 |          2 | get_vistor                     |/your/project/pcc/pcc/pcc.py:19 |
@@ -77,9 +77,9 @@ pcc ./pcc/pcc.py
 ### caculate directory
 
 ```bash
-pcc . -j 8 -e ./venv -e ./docs -e ./languages 
-                                        Code Cyclomatic Complexity Caculator                                         
-                                                                                                                     
+pcc . -j 8 -e ./venv -e ./docs -e ./languages
+                                        Code Cyclomatic Complexity Caculator
+
 | Complexity | Function              |                                                      File |
 |------------|-----------------------|-----------------------------------------------------------|
 |          7 | class                 |            /your/project/pcc/pcc/python/vistor_impl.py:94 |
@@ -92,7 +92,7 @@ pcc . -j 8 -e ./venv -e ./docs -e ./languages
 |          6 | myfun                 |/your/project/pcc/tests/data/python3/directory/class.py:32 |
 |          6 | myfun2                |/your/project/pcc/tests/data/python3/directory/class.py:52 |
 |          6 | travel_dir_and_filter |               /your/project/pcc/build/lib/pcc/utils.py:33 |
-                                                                                                                     
+
 Procee [37] files use Time: 0.04288077354431152 s
 ```
 
@@ -101,7 +101,7 @@ as u can see, `-e` can exclude directory you don't want, and can use multi times
 
 ## Development
 
-download repo and initialize environment  
+download repo and initialize environment
 
 ```bash
 python3 -m venv venv
@@ -112,13 +112,13 @@ pip3 install -r requirements_dev.txt -i https://mirrors.aliyun.com/pypi/simple/
 git submodule update --init
 ```
 
-compile dynamic library  
+compile dynamic library
 
 ```bash
 make lib
 ```
 
-run test  
+run test
 
 ```bash
 make test
@@ -144,12 +144,12 @@ make test
 
 ## Reference
 
-[Cookiecutter](https://github.com/audreyr/cookiecutter)  
-[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)  
-[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)  
-[gocyclo](https://github.com/fzipp/gocyclo)  
-[tree-sitter](https://github.com/tree-sitter/tree-sitter)  
-[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)  
-[mccabe](https://github.com/PyCQA/mccabe)  
-[cccalculator](https://github.com/xiaomizhou/cccalculator)  
-  
+[Cookiecutter](https://github.com/audreyr/cookiecutter)
+[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
+[cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
+[gocyclo](https://github.com/fzipp/gocyclo)
+[tree-sitter](https://github.com/tree-sitter/tree-sitter)
+[py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)
+[mccabe](https://github.com/PyCQA/mccabe)
+[cccalculator](https://github.com/xiaomizhou/cccalculator)
+
