@@ -1,7 +1,6 @@
 <div align="center">
     <img src="./docs/kestrel.png">
     <h1>Python Cyclomatic Complexity Caculator</h1>
-    <img src="https://img.shields.io/static/v1?label=version&message=0.0.1&color=green">
     <h3>
         <a href="#Installation">安装</a>
         <span> | </span>
@@ -15,6 +14,8 @@
         <a>简体中文</a>
     </h5>
 </div>
+
+[![PyPI version](https://badge.fury.io/py/pcc-calc.svg)](https://badge.fury.io/py/pcc-calc)
 
 ***
 
@@ -31,7 +32,7 @@ Cyclomatic complexity is a [code quality metric](https://en.wikipedia.org/wiki/S
 ## Installation
 
 ```bash
-pip install pcc-calc==0.0.1
+pip install pcc-calc==0.0.2
 ```
 
 you need download or build library first.

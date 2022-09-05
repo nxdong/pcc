@@ -31,7 +31,7 @@ def detect_platform():
 
 def get_version():
     # TODO: uniform version
-    return '0.0.1'
+    return '0.0.2'
 
 
 def get_lib_name():
