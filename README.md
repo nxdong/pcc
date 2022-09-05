@@ -12,9 +12,9 @@
         <span> | </span>
         <a href="./docs/README.zh-CN.md">简体中文</a>
     </h5>
+    [![PyPI version](https://badge.fury.io/py/pcc-calc.svg)](https://badge.fury.io/py/pcc-calc)
 </div>
 
-[![PyPI version](https://badge.fury.io/py/pcc-calc.svg)](https://badge.fury.io/py/pcc-calc)
 
 ***
 
