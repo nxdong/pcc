@@ -34,7 +34,28 @@ pip install pcc-calc==0.0.1
 
 you need download or build library first.
 
-
+```bash
+pcc ./tests/data/python3 
+Do you want to creat [/your/path/pcc/.pcc] ? [y/N]: y
+Create Dir [/your/path/pcc/.pcc] success!
+Do you want to dowload one from [/your/path/pcc/.pcc/libpcc_ts_all.so] ? [y/N]: y
+Download [/your/path/pcc/.pcc] success!
+                    Code Cyclomatic Complexity Caculator                                       
+                                                                                                                 
+| Complexity | Function          |                                                    File |
+|------------|-------------------|---------------------------------------------------------|
+|          6 | class             | /your/path/pcc/tests/data/python3/directory/class.py:15 |
+|          6 | myfun             | /your/path/pcc/tests/data/python3/directory/class.py:32 |
+|          6 | myfun2            | /your/path/pcc/tests/data/python3/directory/class.py:52 |
+|          4 | function_in_file2 |  /your/path/pcc/tests/data/python3/directory/file2.py:1 |
+|          2 | if_statment_0     |              /your/path/pcc/tests/data/python3/ifs.py:2 |
+|          2 | if_statment_1     |              /your/path/pcc/tests/data/python3/ifs.py:8 |
+|          2 | function_in_file1 |  /your/path/pcc/tests/data/python3/directory/file1.py:1 |
+|          1 | get_url           |  /your/path/pcc/tests/data/python3/directory/class.py:7 |
+|          1 | class             | /your/path/pcc/tests/data/python3/directory/class.py:12 |
+                                                                                                                 
+Procee [4] files use Time: 0.022909164428710938 s
+```
 
 
 ## Usage
@@ -98,6 +119,25 @@ Procee [37] files use Time: 0.04288077354431152 s
 
 as u can see, `-e` can exclude directory you don't want, and can use multi times.
 
+### multilang support
+
+```bash
+$ pcc ./tests/data/       
+                  Code Cyclomatic Complexity Caculator                                       
+                                                                                                                 
+| Complexity | Function          |                                                                         File |
+|------------|-------------------|------------------------------------------------------------------------------|
+|          6 | class             | /home/sss/cyclomatic_complexity/pcc/tests/data/python3/directory/class.py:15 |
+|          6 | myfun             | /home/sss/cyclomatic_complexity/pcc/tests/data/python3/directory/class.py:32 |
+|          6 | myfun2            | /home/sss/cyclomatic_complexity/pcc/tests/data/python3/directory/class.py:52 |
+|          4 | function_in_file2 |  /home/sss/cyclomatic_complexity/pcc/tests/data/python3/directory/file2.py:1 |
+|          4 | ifs_c_func        |                     /home/sss/cyclomatic_complexity/pcc/tests/data/c/ifs.c:1 |
+|          4 | if_c              |            /home/sss/cyclomatic_complexity/pcc/tests/data/c/directory/if.c:1 |
+|          3 | for_c             |           /home/sss/cyclomatic_complexity/pcc/tests/data/c/directory/for.c:1 |
+|          3 | if_while_c        |         /home/sss/cyclomatic_complexity/pcc/tests/data/c/directory/while.c:1 |
+|          2 | if_statment_0     |              /home/sss/cyclomatic_complexity/pcc/tests/data/python3/ifs.py:2 |
+|          2 | if_statment_1     |              /home/sss/cyclomatic_complexity/pcc/tests/data/python3/ifs.py:8 |
+```
 
 ## Development
 
@@ -136,20 +176,28 @@ make test
 ## TodoList
 
 - add json output for future analyze
-- depoly to pipy
-- add c language
 - add macos, windows support
 - do more test
-- comment support
+- comment support,for ignore function
+- select language and sort group by language
 
 ## Reference
 
-[Cookiecutter](https://github.com/audreyr/cookiecutter)
+[Cookiecutter](https://github.com/audreyr/cookiecutter)  
+
 [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
+
 [cyclomatic complexities Wiki](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
+
 [gocyclo](https://github.com/fzipp/gocyclo)
+
 [tree-sitter](https://github.com/tree-sitter/tree-sitter)
+
 [py-tree-sitter](https://github.com/tree-sitter/py-tree-sitter)
+
 [mccabe](https://github.com/PyCQA/mccabe)
+
 [cccalculator](https://github.com/xiaomizhou/cccalculator)
+
+
 

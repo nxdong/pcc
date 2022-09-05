@@ -37,7 +37,6 @@ def download_library(target_file_path):
 
 def check_or_download(lib_path: str):
     library_path = os.path.join(lib_path, PCC_LIB_NAME)
-
     if os.path.exists(lib_path):
         if not os.path.exists(library_path):
             if click.confirm('Do you want to dowload one from [{}] ?'.format(library_path)):

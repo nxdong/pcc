@@ -6,13 +6,13 @@ from tree_sitter import Parser
 from tree_sitter import Node
 from ..utils import get_language_lib_path
 
-G_SO_PATH = get_language_lib_path('c')
-G_LANG_HANDLE = Language(G_SO_PATH, 'c')
 
 
 class CParser(ASTParserAbstractClass):
     def __init__(self):
         super().__init__()
+        G_SO_PATH = get_language_lib_path('c')
+        G_LANG_HANDLE = Language(G_SO_PATH, 'c')
         self.parser = Parser()
         self.parser.set_language(G_LANG_HANDLE)
 
