@@ -3,7 +3,12 @@ import platform
 
 PYTHON_EXT = ['.py']
 PYTHON_NAME = 'python'
-SUPPORT_LANGUAGE = [(PYTHON_NAME, PYTHON_EXT)]
+C_EXT = ['.c']
+C_NAME = 'c'
+SUPPORT_LANGUAGE = [
+    (PYTHON_NAME, PYTHON_EXT),
+    (C_NAME, C_EXT)
+]
 
 
 def _gen_ext_map():

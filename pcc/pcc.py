@@ -20,6 +20,9 @@ def get_vistor(language: str) -> ASTVisitorType:
     if language == 'python':
         from .python import PythonVisitor
         return PythonVisitor()
+    elif language == 'c':
+        from .c import CVisitor
+        return CVisitor()
     raise Exception("Language vistor not support: {}".format(language))
 
 
@@ -27,6 +30,9 @@ def get_parser(language: str) -> ASTParserType:
     if language == 'python':
         from .python import PythonParser
         return PythonParser()
+    if language == 'c':
+        from .c import CParser
+        return CParser()
     raise Exception("Language parser not support: {}".format(language))
 
 
